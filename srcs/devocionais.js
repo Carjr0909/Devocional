@@ -35,13 +35,36 @@ onAuthStateChanged(auth, async (user) => {
             <small>${d.data}</small>
             <button data-id="${docSnap.id}">Excluir</button>
         `;
+        card.innerHTML = `
+            <h3>${d.nome}</h3>
+            <p><b>${d.livro} ${d.capitulo}:${d.versiculos}</b></p>
+            <small>${d.data}</small>
 
-        card.querySelector("button").onclick = async () => {
+            <div class="card-buttons">
+                <button class="btpadrao abrir" data-id="${docSnap.id}">Abrir</button>
+                <button class="btpadrao excluir" data-id="${docSnap.id}">Excluir</button>
+            </div>
+        `;
+
+        // BOTÃO ABRIR
+        card.querySelector(".abrir").onclick = () => {
+            localStorage.setItem("devocionalSelecionado", docSnap.id);
+            window.location.href = "inicio.html";
+        };
+
+        // BOTÃO EXCLUIR
+        card.querySelector(".excluir").onclick = async () => {
             if (!confirm("Excluir devocional?")) return;
-            await deleteDoc(doc(db, "devocionais", user.uid, "itens", docSnap.id));
+
+            await deleteDoc(
+                doc(db, "devocionais", user.uid, "itens", docSnap.id)
+            );
+
             location.reload();
         };
+
 
         container.appendChild(card);
     });
 });
+
