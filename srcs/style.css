@@ -57,6 +57,12 @@ footer {
     width: 120px;
     height: 40px;
     cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.btpadrao:hover{
+    background-color: var(--btn-hover);
     transition: 0.3s;
 }
 
@@ -185,37 +191,31 @@ footer {
 }
 /* ================== MODAL ================== */
 /* MODAL BACKGROUND */
+/* ===== MODAL SALVAR DEVOCIONAL ===== */
 .modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-
-    background: rgba(0, 0, 0, 0.6);
+    inset: 0;
+    background: rgba(0,0,0,0.6);
 
     display: none;
     align-items: center;
     justify-content: center;
 
-    z-index: 9999; /* ISSO É O MAIS IMPORTANTE */
+    z-index: 99999;
 }
 
-/* MODAL CONTENT */
 .modal-content {
     background: #fff;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 90%;
     max-width: 400px;
-
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    height: 150px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
 }
 
-.btpadrao:hover{
-    background-color: var(--btn-hover);
-    transition: 0.3s;
-}
 
 /* ================== RESPONSIVO ================== */
 @media (max-width: 1024px){
