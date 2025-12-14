@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inicio</title>
+        <link rel="stylesheet" href="srcs/style.css">
+        <link rel="stylesheet" href="srcs/dark.css">
+        <link rel="stylesheet" href="srcs/btperson.css">
+        <link rel="icon" type="image/png" href="srcs/img/Logo.png">
+    </head>
+    <script src="srcs/auth.js"></script>
+    <body>
+        <!-- NAV BAR-->
+        <div class="container-fluid" id="navbar">
+            <a href="inicio.html">
+                <img id="logo" src="srcs/img/Logo02.png" alt="logo">
+            </a>
+            <div id="buttons">
+                <button class="btn btn-primary btn-lg" id="bthd" onclick="window.location.href='devocionais.html'">
+                    <b>Devocionais</b>
+                </button>
+                <button id="logout" class="btpadrao">Sair</button>
+                <label class="switch">
+                    <input class="checkbox" type="checkbox" id="darkModeBtn"/>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- NAV -->
+        <div class="container-fluid" id="nav">
+            <div id="p1" class="container-row">
+                <div id="biblia">
+                <h2 id="titlebible">Leitura Bíblica</h2>
+                <select id="livro"></select>
+                <input type="number" id="capitulo" placeholder="Capítulo">
+                <input type="text" id="versiculos" placeholder="Versículos (ex: 7-8)">
+                <button id="btnCarregar">Carregar</button>
+                <div id="textoBiblico"></div>
+            </div>
+        </div>
+            <div id="p2" class="container-row">
+                <p id="titleant"><b>Anotações</b></p>
+                <textarea id="mensagem" name="mensagem" rows="4" cols="50" placeholder="Jesus salve Bro..."></textarea>
+                <div class="btn-area">
+                    <button class="btn btn-primary btn-lg" id="btnsalve"><b>Salvar</b></button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MODAL SALVAR DEVOCIONAL -->
+        <div id="modalSalvar" class="modal">
+            <div class="modal-content">
+                <h3>Salvar Devocional</h3>
+
+                <input 
+                    type="text" 
+                    id="nomeDevocional" 
+                    placeholder="Nome do devocional"
+                >
+
+                <div class="modal-buttons">
+                    <button id="confirmarSalvar" class="btpadrao" class="btn btn-primary">Salvar</button>
+                    <button id="cancelarSalvar" class="btpadrao" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <footer><p>&copy; 2025 Rodapé Fixo na Tela</p></footer>
+
+        <script src="srcs/script.js"></script>
+        <script src="srcs/biblia.js"></script>
+        <script src="srcs/dark.js"></script>
+        <script src="srcs/login.js"></script>
+        <script src="srcs/logout.js"></script>
+
+    </body>
+</html>

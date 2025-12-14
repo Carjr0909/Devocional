@@ -1,0 +1,58 @@
+/* From Uiverse.io by artginzburg */ 
+/* The switch - the box around the slider */
+.switch {
+  --container-width: 3.5em;
+
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: var(--container-width);
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch .checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  --width: 0.4em;
+  --offset: 0.3em;
+  --transition-duration: 0.4s;
+
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-duration);
+  transition-property: background-color, box-shadow;
+  border-radius: 5px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: var(--width);
+  border-radius: 0.1em;
+  left: var(--offset);
+  bottom: var(--offset);
+  background-color: white;
+  transition: transform var(--transition-duration);
+}
+
+.checkbox:checked + .slider {
+  background-color: #171717;
+  box-shadow: inset 2px 5px 10px transparent;
+}
+
+.checkbox:checked + .slider::before {
+  transform: translateX(
+      calc(var(--container-width) - var(--offset) * 2 - var(--width))
+    )
+    rotate(1turn);
+}

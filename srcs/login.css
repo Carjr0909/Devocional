@@ -1,0 +1,119 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--bg-color);
+    font-family: Arial, sans-serif;
+    transition: 0.3s;
+}
+
+
+#navbar{
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+    height: 100px;
+    transition: 0.3s;
+}
+
+#logo{
+    width: auto;
+    height: 100px;
+    border-radius: 20px;
+    filter: invert(var(--filter));
+    transition: 0.3s;
+
+}
+
+#buttons{
+    display: flex;
+    gap: 10px;
+}
+
+#bthd{
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 20px;
+    border: none;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#bthd:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
+}
+
+#cardlogin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background-color: white;
+    border-radius: 30px;
+}
+
+
+.input-wrapper input {
+    background-color: #eee;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 13em;
+    border-radius: 1rem;
+    color: lightcoral;
+    box-shadow: 0 0.4rem #dfd9d9;
+    cursor: pointer;
+}
+
+.input-wrapper button {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 13em;
+    border-radius: 1rem;
+    box-shadow: 0 0.4rem #dfd9d9;
+    cursor: pointer;
+    transition: 0.3s
+}
+
+#input3:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
+}
+
+#input1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#input2{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#input3{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.input-wrapper input:focus {
+  outline-color: lightcoral;
+}
+
+#title{
+    font-size: 50px;
+    text-align: center;
+}

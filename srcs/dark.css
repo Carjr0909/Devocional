@@ -1,0 +1,22 @@
+
+:root {
+    --bg-color: #503C7E;
+    --text-color: #000000;
+    --card-color: #f2f2f2;
+    --btn-bg: #625286;
+    --btn-text: #000000;
+    --btn-hover: #341539;
+    --back: #EFEFEF;
+    --filter: 0%;
+}
+
+body.dark {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --card-color: #1e1e1e;
+    --btn-bg: #333333;
+    --btn-text: #ffffff;
+    --btn-hover: #575757;
+    --back: #5A595D;
+    --filter: 100%;
+}

@@ -1,0 +1,233 @@
+
+/* ================== RESET ================== */
+
+body{
+    padding: 0;
+    margin: 0;
+    background-color: var(--back);
+    font-family: Arial, sans-serif;
+    transition: 0.3s;
+}
+
+footer {
+    position: fixed; /* Prende o elemento à janela de visualização */
+    bottom: 0;       /* Alinha na parte inferior da tela */
+    left: 0;         /* Alinha na esquerda */
+    width: 100%;     /* Ocupa toda a largura */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    text-align: center;
+    padding: 10px 0;
+    height: 40px; /* Defina uma altura fixa */
+    transition: 0.3s;
+}
+
+/* ================== NAVBAR ================== */
+#navbar{
+    background-color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+    height: 100px;
+    transition: 0.3s;
+}
+
+#logo{
+    width: auto;
+    height: 100px;
+    border-radius: 20px;
+    filter: invert(var(--filter));
+    transition: 0.3s;
+
+}
+
+#buttons{
+    display: flex;
+    gap: 10px;
+}
+
+#bthd,
+.btpadrao{
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 20px;
+    border: none;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#bthd:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
+}
+
+/* ================== LAYOUT PRINCIPAL ================== */
+#nav{
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    align-items: flex-start;
+}
+
+/* Coluna Bíblia */
+#p1{
+    flex: 1;
+    max-width: 450px;
+    background-color: var(--bg-color);
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+/* Coluna Anotações */
+#p2{
+    flex: 2;
+    background-color: var(--bg-color);
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+/* ================== BÍBLIA ================== */
+#biblia select,
+#biblia input,
+#biblia button{
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+#titlebible{
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+#biblia input{
+    width: 202.5px;
+}
+
+#textoBiblico{
+    background: var(--card-color);
+    padding: 10px;
+    border-radius: 10px;
+    height: 350px;
+    overflow-y: auto;
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+/* ================== ANOTAÇÕES ================== */
+#titleant{
+    text-align: center;
+    font-size: 32px;
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+#mensagem{
+    width: 100%;
+    height: 350px;
+    resize: none;
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.btn-area{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#btnsalve{
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    border-radius: 20px;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#btnsalve:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
+}
+
+/* ================== CARDS ================== */
+.cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.card{
+    background: var(--card-color);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#titledevocional{
+    color: var(--text-color);
+    transition: 0.3s;
+}
+/* ================== MODAL ================== */
+.modal{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background: var(--card-color);
+    padding: 20px;
+    border-radius: 15px;
+    width: 350px;
+    height: 150px;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column; 
+}
+.btpadrao:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
+}
+
+/* ================== RESPONSIVO ================== */
+@media (max-width: 1024px){
+    #nav{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #p1, #p2{
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px){
+    #logo{
+        width: 200px;
+    }
+
+    #buttons{
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
