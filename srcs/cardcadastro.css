@@ -157,3 +157,15 @@ body {
     opacity: 1;
 }
 
+@media (max-width: 600px) {
+  #cardlogin {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .input-wrapper input,
+  .input-wrapper button {
+    width: 100%;
+  }
+}
