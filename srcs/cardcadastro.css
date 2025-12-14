@@ -17,13 +17,34 @@ body {
     transition: 0.3s;
 }
 
+#buttons{
+    display: flex;
+    gap: 10px;
+}
+
+#bthd{
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 20px;
+    border: none;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#bthd:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
+}
+
 #cardlogin {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    height: 475px;
+    height: 600px;
     background-color: white;
     border-radius: 30px;
 }
@@ -54,36 +75,43 @@ body {
     transition: 0.3s
 }
 
-#input3:hover{
-    background-color: var(--btn-hover);
-    transition: 0.3s;
-}
-
 #input1{
     position: absolute;
-    top: 40%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 #input2{
     position: absolute;
-    top: 55%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 #input3{
     position: absolute;
-    top: 70%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 #input4{
     position: absolute;
-    top: 85%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-decoration: none;
 }
+
+#input4:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
+}
+
+#input5{
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 .input-wrapper input:focus {
   outline-color: lightcoral;
@@ -92,6 +120,22 @@ body {
 #title{
     font-size: 50px;
     text-align: center;
+}
+
+.btpadrao{
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 20px;
+    border: none;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btpadrao:hover{
+    background-color: var(--btn-hover);
+    transition: 0.3s;
 }
 
 #toast {
@@ -113,10 +157,3 @@ body {
     opacity: 1;
 }
 
-#resetSenha{
-    position: absolute;
-    top: 95%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-decoration: none;
-}

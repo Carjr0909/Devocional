@@ -184,25 +184,34 @@ footer {
     transition: 0.3s;
 }
 /* ================== MODAL ================== */
-.modal{
-    display: none;
+/* MODAL BACKGROUND */
+.modal {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: none;
     align-items: center;
+    justify-content: center;
+
+    z-index: 9999; /* ISSO É O MAIS IMPORTANTE */
 }
 
-.modal-content{
-    background: var(--card-color);
+/* MODAL CONTENT */
+.modal-content {
+    background: #fff;
     padding: 20px;
-    border-radius: 15px;
-    width: 350px;
-    height: 150px;
-    color: var(--text-color);
-    display: flex;
-    flex-direction: column; 
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
+
 .btpadrao:hover{
     background-color: var(--btn-hover);
     transition: 0.3s;
