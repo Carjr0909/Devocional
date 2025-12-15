@@ -91,8 +91,9 @@ function carregarBiblia() {
         return;
     }
 
-    // Montar URL da API corretamente
-    const url = `https://bible-api.com/${encodeURIComponent(livro.value + ' ' + capitulo.value + ':' + versiculos.value)}?translation=almeida`;
+    // usar nome em inglês da API
+    const livroApi = livro.value; // já é o valor 'en' do select
+    const url = `https://bible-api.com/${livroApi}+${capitulo.value}:${versiculos.value}?translation=almeida`;
 
     textoBiblico.innerHTML = "Carregando...";
 
@@ -110,7 +111,6 @@ function carregarBiblia() {
                 textoBiblico.innerHTML += `<p><b>${v.book_name} ${v.chapter}:${v.verse}</b><br>${v.text}</p>`;
             });
 
-            // Salvar leitura atual no localStorage
             localStorage.setItem("livroAtual", livro.value);
             localStorage.setItem("capituloAtual", capitulo.value);
             localStorage.setItem("versiculosAtual", versiculos.value);
@@ -120,6 +120,7 @@ function carregarBiblia() {
             textoBiblico.innerHTML = "Erro ao carregar a Bíblia.";
         });
 }
+
 
 // Carregar última leitura ao abrir página
 window.onload = () => {
