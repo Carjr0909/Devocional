@@ -90,7 +90,9 @@ function carregarBiblia() {
 
     const livroApi = livro.value;
     const cap = capitulo.value;
-    const vers = versiculos.value.replace(/\s+/g, ""); // remove espaços
+    let vers = versiculos.value.replace(/\s+/g, ""); // remove espaços
+    vers = vers.replace("-", ".."); // troca hífen por .. para intervalos (ex: 5-7 → 5..7)
+
     const query = `${livroApi}+${cap}:${vers}`;
     const url = `https://bible-api.com/${encodeURIComponent(query)}?translation=almeida`;
 
@@ -101,7 +103,7 @@ function carregarBiblia() {
         .then(data => {
             textoBiblico.innerHTML = "";
 
-            if (!data.verses) {
+            if (!data.verses || data.verses.length === 0) {
                 textoBiblico.innerHTML = "Versículo não encontrado.";
                 return;
             }
@@ -119,3 +121,4 @@ function carregarBiblia() {
             textoBiblico.innerHTML = "Erro ao carregar a Bíblia.";
         });
 }
+
