@@ -1,3 +1,5 @@
+// script2.js — Bíblia + API
+
 const livro = document.getElementById("livro");
 const capitulo = document.getElementById("capitulo");
 const versiculos = document.getElementById("versiculos");
@@ -72,7 +74,7 @@ const livrosBiblia = [
     { pt: "Apocalipse", en: "revelation" }
 ];
 
-// popular select
+// Popular livros na <select>
 livrosBiblia.forEach(l => {
     const opt = document.createElement("option");
     opt.value = l.en;
@@ -80,6 +82,7 @@ livrosBiblia.forEach(l => {
     livro.appendChild(opt);
 });
 
+// Botão carregar
 document.getElementById("btnCarregar").onclick = carregarBiblia;
 
 function carregarBiblia() {
@@ -88,37 +91,60 @@ function carregarBiblia() {
         return;
     }
 
-    const livroApi = livro.value;
+    const livroApi = livro.value; // em inglês
     const cap = capitulo.value;
-    let vers = versiculos.value.replace(/\s+/g, ""); // remove espaços
-    vers = vers.replace("-", ".."); // troca hífen por .. para intervalos (ex: 5-7 → 5..7)
+    const versiculosInput = versiculos.value.trim();
 
-    const query = `${livroApi}+${cap}:${vers}`;
-    const url = `https://bible-api.com/${encodeURIComponent(query)}?translation=almeida`;
+    // Suporte para intervalos: "1-5" ou versículos únicos "5"
+    const versiculosArray = versiculosInput.split(",").flatMap(v => {
+        if (v.includes("-")) {
+            const [start, end] = v.split("-").map(Number);
+            return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+        } else {
+            return [Number(v)];
+        }
+    });
 
     textoBiblico.innerHTML = "Carregando...";
 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            textoBiblico.innerHTML = "";
-
-            if (!data.verses || data.verses.length === 0) {
-                textoBiblico.innerHTML = "Versículo não encontrado.";
-                return;
-            }
-
-            data.verses.forEach(v => {
-                textoBiblico.innerHTML += `<p><b>${v.book_name} ${v.chapter}:${v.verse}</b><br>${v.text}</p>`;
+    // Requisições para todos os versículos
+    Promise.all(versiculosArray.map(verse => {
+        const url = `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-asv/books/${livroApi}/chapters/${cap}/verses/${verse}.json`;
+        return fetch(url)
+            .then(res => {
+                if (!res.ok) throw new Error(`Versículo ${verse} não encontrado`);
+                return res.json();
             });
-
-            localStorage.setItem("livroAtual", livro.value);
-            localStorage.setItem("capituloAtual", capitulo.value);
-            localStorage.setItem("versiculosAtual", versiculos.value);
-        })
-        .catch(err => {
-            console.error(err);
-            textoBiblico.innerHTML = "Erro ao carregar a Bíblia.";
+    }))
+    .then(results => {
+        textoBiblico.innerHTML = "";
+        results.forEach(data => {
+            textoBiblico.innerHTML += `<p><b>${data.book_name} ${data.chapter}:${data.verse}</b><br>${data.text}</p>`;
         });
+
+        // salvar leitura atual
+        localStorage.setItem("livroAtual", livro.value);
+        localStorage.setItem("capituloAtual", capitulo.value);
+        localStorage.setItem("versiculosAtual", versiculos.value);
+    })
+    .catch(err => {
+        console.error(err);
+        textoBiblico.innerHTML = "Um ou mais versículos não foram encontrados.";
+    });
 }
 
+
+
+// Carregar última leitura ao abrir página
+window.onload = () => {
+    const livroSalvo = localStorage.getItem("livroAtual");
+    const capituloSalvo = localStorage.getItem("capituloAtual");
+    const versiculosSalvo = localStorage.getItem("versiculosAtual");
+
+    if (livroSalvo && capituloSalvo && versiculosSalvo) {
+        livro.value = livroSalvo;
+        capitulo.value = capituloSalvo;
+        versiculos.value = versiculosSalvo;
+        carregarBiblia();
+    }
+};
