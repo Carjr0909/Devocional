@@ -1,4 +1,4 @@
-// script2.js — Bíblia + API (versões em português e suporte a múltiplos versículos)
+// script2.js — Bíblia em português + suporte a múltiplos versículos
 
 const livro = document.getElementById("livro");
 const capitulo = document.getElementById("capitulo");
@@ -109,18 +109,22 @@ function carregarBiblia() {
 
     Promise.all(
         versiculosArray.map(verse => {
-            const url = `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-asv/books/${livroApi}/chapters/${cap}/verses/${verse}.json`;
+            const url = `https://bible-api.com/${livroApi}+${cap}:${verse}?translation=almeida`;
             return fetch(url)
                 .then(res => {
                     if (!res.ok) throw new Error(`Versículo ${verse} não encontrado`);
                     return res.json();
                 })
-                .then(data => ({
-                    book_name: livroPt,
-                    chapter: cap,
-                    verse: verse,
-                    text: data.text
-                }));
+                .then(data => {
+                    // Pode vir apenas um versículo, então padronizamos
+                    const v = Array.isArray(data.verses) ? data.verses[0] : data;
+                    return {
+                        book_name: livroPt,
+                        chapter: cap,
+                        verse: verse,
+                        text: v.text
+                    };
+                });
         })
     )
     .then(results => {
