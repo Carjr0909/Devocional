@@ -74,7 +74,7 @@ const livrosBiblia = [
     { pt: "Apocalipse", en: "revelation" }
 ];
 
-// popular livros
+// Popular livros na <select>
 livrosBiblia.forEach(l => {
     const opt = document.createElement("option");
     opt.value = l.en;
@@ -82,28 +82,55 @@ livrosBiblia.forEach(l => {
     livro.appendChild(opt);
 });
 
+// Botão carregar
 document.getElementById("btnCarregar").onclick = carregarBiblia;
 
 function carregarBiblia() {
     if (!livro.value || !capitulo.value || !versiculos.value) {
-        alert("Preencha tudo");
+        alert("Preencha todos os campos!");
         return;
     }
 
-    const url = `https://bible-api.com/${livro.value}+${capitulo.value}:${versiculos.value}?translation=almeida`;
+    // Montar URL da API corretamente
+    const url = `https://bible-api.com/${encodeURIComponent(livro.value + ' ' + capitulo.value + ':' + versiculos.value)}?translation=almeida`;
+
     textoBiblico.innerHTML = "Carregando...";
 
     fetch(url)
-        .then(r => r.json())
+        .then(res => res.json())
         .then(data => {
             textoBiblico.innerHTML = "";
+
+            if (!data.verses) {
+                textoBiblico.innerHTML = "Versículo não encontrado.";
+                return;
+            }
+
             data.verses.forEach(v => {
                 textoBiblico.innerHTML += `<p><b>${v.book_name} ${v.chapter}:${v.verse}</b><br>${v.text}</p>`;
             });
 
-            // salvar leitura atual
+            // Salvar leitura atual no localStorage
             localStorage.setItem("livroAtual", livro.value);
             localStorage.setItem("capituloAtual", capitulo.value);
             localStorage.setItem("versiculosAtual", versiculos.value);
+        })
+        .catch(err => {
+            console.error(err);
+            textoBiblico.innerHTML = "Erro ao carregar a Bíblia.";
         });
 }
+
+// Carregar última leitura ao abrir página
+window.onload = () => {
+    const livroSalvo = localStorage.getItem("livroAtual");
+    const capituloSalvo = localStorage.getItem("capituloAtual");
+    const versiculosSalvo = localStorage.getItem("versiculosAtual");
+
+    if (livroSalvo && capituloSalvo && versiculosSalvo) {
+        livro.value = livroSalvo;
+        capitulo.value = capituloSalvo;
+        versiculos.value = versiculosSalvo;
+        carregarBiblia();
+    }
+};
