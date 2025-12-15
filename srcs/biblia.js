@@ -1,4 +1,4 @@
-// script2.js — Bíblia + API
+// script2.js — Bíblia + API (versões em português e suporte a múltiplos versículos)
 
 const livro = document.getElementById("livro");
 const capitulo = document.getElementById("capitulo");
@@ -74,7 +74,7 @@ const livrosBiblia = [
     { pt: "Apocalipse", en: "revelation" }
 ];
 
-// Popular livros na <select>
+// popular dropdown de livros
 livrosBiblia.forEach(l => {
     const opt = document.createElement("option");
     opt.value = l.en;
@@ -82,7 +82,6 @@ livrosBiblia.forEach(l => {
     livro.appendChild(opt);
 });
 
-// Botão carregar
 document.getElementById("btnCarregar").onclick = carregarBiblia;
 
 function carregarBiblia() {
@@ -91,12 +90,12 @@ function carregarBiblia() {
         return;
     }
 
-    const livroApi = livro.value; // em inglês
-    const livroPt = livro.options[livro.selectedIndex].text; // nome em português
-    const cap = capitulo.value;
+    const livroApi = livro.value;
+    const livroPt = livro.options[livro.selectedIndex].text;
+    const cap = capitulo.value.trim();
     const versiculosInput = versiculos.value.trim();
 
-    // Suporte para intervalos: "1-5" ou versículos únicos "5"
+    // suporte a múltiplos versículos e intervalos
     const versiculosArray = versiculosInput.split(",").flatMap(v => {
         if (v.includes("-")) {
             const [start, end] = v.split("-").map(Number);
@@ -108,21 +107,22 @@ function carregarBiblia() {
 
     textoBiblico.innerHTML = "Carregando...";
 
-    // Requisições para todos os versículos
-    Promise.all(versiculosArray.map(verse => {
-        const url = `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-asv/books/${livroApi}/chapters/${cap}/verses/${verse}.json`;
-        return fetch(url)
-            .then(res => {
-                if (!res.ok) throw new Error(`Versículo ${verse} não encontrado`);
-                return res.json();
-            })
-            .then(data => ({
-                book_name: livroPt, // garante o nome em português
-                chapter: cap,
-                verse: verse,
-                text: data.text
-            }));
-    }))
+    Promise.all(
+        versiculosArray.map(verse => {
+            const url = `https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-asv/books/${livroApi}/chapters/${cap}/verses/${verse}.json`;
+            return fetch(url)
+                .then(res => {
+                    if (!res.ok) throw new Error(`Versículo ${verse} não encontrado`);
+                    return res.json();
+                })
+                .then(data => ({
+                    book_name: livroPt,
+                    chapter: cap,
+                    verse: verse,
+                    text: data.text
+                }));
+        })
+    )
     .then(results => {
         textoBiblico.innerHTML = "";
         results.forEach(data => {
@@ -139,20 +139,3 @@ function carregarBiblia() {
         textoBiblico.innerHTML = "Um ou mais versículos não foram encontrados.";
     });
 }
-
-
-
-
-// Carregar última leitura ao abrir página
-window.onload = () => {
-    const livroSalvo = localStorage.getItem("livroAtual");
-    const capituloSalvo = localStorage.getItem("capituloAtual");
-    const versiculosSalvo = localStorage.getItem("versiculosAtual");
-
-    if (livroSalvo && capituloSalvo && versiculosSalvo) {
-        livro.value = livroSalvo;
-        capitulo.value = capituloSalvo;
-        versiculos.value = versiculosSalvo;
-        carregarBiblia();
-    }
-};

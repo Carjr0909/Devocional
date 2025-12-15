@@ -21,12 +21,10 @@ onAuthStateChanged(auth, async (user) => {
             <p><b>${d.livro} ${d.capitulo}:${d.versiculos}</b></p>
             <small>${d.data}</small>
             <div class="card-buttons">
-                <button class="btpadrao abrir">Abrir</button>
                 <button class="btpadrao editar">Editar</button>
                 <button class="btpadrao excluir">Excluir</button>
             </div>
         `;
-        card.querySelector(".abrir").onclick = () => { localStorage.setItem("devocionalSelecionado", docSnap.id); window.location.href = "inicio.html"; };
         card.querySelector(".editar").onclick = () => { localStorage.setItem("devocionalEmEdicao", docSnap.id); window.location.href = "inicio.html"; };
         card.querySelector(".excluir").onclick = async () => { if(confirm("Excluir devocional?")) { await deleteDoc(doc(db, "devocionais", user.uid, "itens", docSnap.id)); location.reload(); } };
         container.appendChild(card);
