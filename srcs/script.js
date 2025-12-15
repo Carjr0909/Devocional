@@ -1,74 +1,199 @@
-// ===== IMPORTS (SEMPRE NO TOPO) =====
+// ================= IMPORTS =================
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { addDoc, collection } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// ===== DOM READY =====
+import {
+  addDoc,
+  updateDoc,
+  collection,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// ================= DOM READY =================
 document.addEventListener("DOMContentLoaded", () => {
 
-    const mensagem = document.getElementById("mensagem");
-    const modal = document.getElementById("modalSalvar");
-    const nomeInput = document.getElementById("nomeDevocional");
+  // ---------- ELEMENTOS ----------
+  const mensagem = document.getElementById("mensagem");
 
-    const btnSalvar = document.getElementById("btnsalve");
-    const btnCancelar = document.getElementById("cancelarSalvar");
-    const btnConfirmar = document.getElementById("confirmarSalvar");
+  const modalSalvar = document.getElementById("modalSalvar");
+  const modalCores = document.getElementById("modalcores");
+  const modalCoresfd = document.getElementById("modalcoresfd");
 
-    let usuarioLogado = null;
+  const nomeInput = document.getElementById("nomeDevocional");
 
-    // Aguarda Firebase Auth
-    onAuthStateChanged(auth, (user) => {
-        usuarioLogado = user;
-    });
+  const btnSalvar = document.getElementById("btnsalve");
+  const btnCancelar = document.getElementById("cancelarSalvar");
+  const btnConfirmar = document.getElementById("confirmarSalvar");
 
-    // Abrir / fechar modal
-    btnSalvar.addEventListener("click", () => {
-        modal.style.display = "flex";
-    });
+  const btnModalColor = document.getElementById("btnModalColor");
+  const btnModalColorfd = document.getElementById("btnModalColorfd");
 
-    btnCancelar.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+  const btnBold = document.getElementById("btnBold");
+  const btnItalic = document.getElementById("btnItalic");
+  const btnUnderline = document.getElementById("btnUnderline");
+  const btnClear = document.getElementById("btnClear");
 
-    // Salvar devocional
-    btnConfirmar.addEventListener("click", async () => {
+  // ---------- CONTROLE ----------
+  let usuarioLogado = null;
+  let alterado = false;
 
-        if (!usuarioLogado) {
-            alert("Usuário não autenticado");
-            return;
+  const devocionalEmEdicao = localStorage.getItem("devocionalEmEdicao");
+
+  if (devocionalEmEdicao) {
+    btnSalvar.innerText = "Atualizar";
+    nomeInput.style.display = "none"; // 👈 não renomeia
+  }
+
+  // ================= AUTH GUARD =================
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "index.html";
+      return;
+    }
+
+    usuarioLogado = user;
+
+    // ===== CARREGAR DEVOCIONAL PARA EDIÇÃO =====
+    if (devocionalEmEdicao) {
+      const ref = doc(
+        db,
+        "devocionais",
+        user.uid,
+        "itens",
+        devocionalEmEdicao
+      );
+
+      const snap = await getDoc(ref);
+      if (!snap.exists()) return;
+
+      const d = snap.data();
+
+      mensagem.innerHTML = d.anotacao || "";
+      document.getElementById("livro").value = d.livro;
+      document.getElementById("capitulo").value = d.capitulo;
+      document.getElementById("versiculos").value = d.versiculos;
+
+      if (typeof carregarBiblia === "function") {
+        carregarBiblia();
+      }
+    }
+  });
+
+  // ================= MODAL SALVAR =================
+  btnSalvar.onclick = () => {
+    modalSalvar.style.display = "flex";
+  };
+
+  btnCancelar.onclick = () => {
+    modalSalvar.style.display = "none";
+  };
+
+  btnConfirmar.onclick = async () => {
+
+    if (!usuarioLogado) return;
+
+    if (devocionalEmEdicao) {
+      // ✏️ ATUALIZAR (SEM RENOMEAR)
+      await updateDoc(
+        doc(db, "devocionais", usuarioLogado.uid, "itens", devocionalEmEdicao),
+        {
+          livro: localStorage.getItem("livroAtual"),
+          capitulo: localStorage.getItem("capituloAtual"),
+          versiculos: localStorage.getItem("versiculosAtual"),
+          anotacao: mensagem.innerHTML,
+          data: new Date().toLocaleDateString()
         }
+      );
 
-        const nome = nomeInput.value.trim();
-        if (!nome) {
-            alert("Dê um nome ao devocional");
-            return;
+      localStorage.removeItem("devocionalEmEdicao");
+      alert("Devocional atualizado!");
+
+    } else {
+      // ➕ NOVO DEVOCIONAL
+      const nome = nomeInput.value.trim();
+      if (!nome) {
+        alert("Dê um nome ao devocional");
+        return;
+      }
+
+      await addDoc(
+        collection(db, "devocionais", usuarioLogado.uid, "itens"),
+        {
+          nome,
+          livro: localStorage.getItem("livroAtual"),
+          capitulo: localStorage.getItem("capituloAtual"),
+          versiculos: localStorage.getItem("versiculosAtual"),
+          anotacao: mensagem.innerHTML,
+          data: new Date().toLocaleDateString()
         }
+      );
 
-        try {
-            await addDoc(
-                collection(db, "devocionais", usuarioLogado.uid, "itens"),
-                {
-                    nome,
-                    livro: localStorage.getItem("livroAtual"),
-                    capitulo: localStorage.getItem("capituloAtual"),
-                    versiculos: localStorage.getItem("versiculosAtual"),
-                    anotacao: mensagem.value,
-                    data: new Date().toLocaleDateString()
-                }
-            );
+      alert("Devocional salvo!");
+    }
 
-            modal.style.display = "none";
-            nomeInput.value = "";
-            alert("Devocional salvo com sucesso!");
+    alterado = false;
+    modalSalvar.style.display = "none";
+    nomeInput.value = "";
+  };
 
-        } catch (e) {
-            console.error(e);
-            alert("Erro ao salvar devocional");
-        }
-    });
+  // ================= MODAIS DE CORES =================
+  btnModalColor.onclick = () => modalCores.style.display = "flex";
+  btnModalColorfd.onclick = () => modalCoresfd.style.display = "flex";
+
+  document.getElementById("fecharmodalcolor").onclick = () =>
+    modalCores.style.display = "none";
+
+  document.getElementById("fecharmodalcolorfd").onclick = () =>
+    modalCoresfd.style.display = "none";
+
+  const cores = {
+    btBlack: "black",
+    btRed: "red",
+    btBlue: "blue",
+    btGreen: "green",
+    btPurple: "purple",
+    btYellow: "yellow"
+  };
+
+  for (const id in cores) {
+    document.getElementById(id).onclick = () => {
+      document.execCommand("foreColor", false, cores[id]);
+      modalCores.style.display = "none";
+    };
+  }
+
+  const coresfd = {
+    btBlackfd: "black",
+    btRedfd: "red",
+    btBluefd: "blue",
+    btGreenfd: "green",
+    btPurplefd: "purple",
+    btYellowfd: "yellow"
+  };
+
+  for (const id in coresfd) {
+    document.getElementById(id).onclick = () => {
+      document.execCommand("hiliteColor", false, coresfd[id]);
+      modalCoresfd.style.display = "none";
+    };
+  }
+
+  // ================= FORMATAÇÃO =================
+  btnBold.onclick = () => document.execCommand("bold");
+  btnItalic.onclick = () => document.execCommand("italic");
+  btnUnderline.onclick = () => document.execCommand("underline");
+  btnClear.onclick = () => document.execCommand("removeFormat");
+
+  // ================= CONFIRMAR SAÍDA =================
+  mensagem.addEventListener("input", () => alterado = true);
+
+  window.addEventListener("beforeunload", (e) => {
+    if (alterado) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
+  });
+
 });
-
-document.getElementById("modalSalvar").style.display = "flex"
-

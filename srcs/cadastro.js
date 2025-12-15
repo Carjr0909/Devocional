@@ -1,42 +1,25 @@
 import { auth } from "./firebase.js";
-import { createUserWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-function showToast(msg) {
-    const toast = document.getElementById("toast");
-    toast.innerText = msg;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 3000);
-}
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const form = document.getElementById("loginForm");
-console.log(form);
+const inputEmail = document.getElementById("input1");
+const inputSenha = document.getElementById("input2");
+const inputConfirma = document.getElementById("input3");
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const email = input1.value.trim();
-    const senha = input2.value;
-    const confirmar = input3.value;
-
-    if (senha !== confirmar) {
-        showToast("As senhas não coincidem!");
+    if(inputSenha.value !== inputConfirma.value){
+        alert("As senhas não coincidem!");
         return;
     }
 
     try {
-        await createUserWithEmailAndPassword(auth, email, senha);
-        showToast("Cadastro realizado com sucesso!");
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1500);
-    } catch (error) {
-        if (error.code === "auth/email-already-in-use") {
-            showToast("Esse email já está cadastrado!");
-        } else if (error.code === "auth/weak-password") {
-            showToast("Senha fraca (mín. 6 caracteres)");
-        } else {
-            showToast("Erro ao cadastrar");
-        }
+        await createUserWithEmailAndPassword(auth, inputEmail.value, inputSenha.value);
+        alert("Cadastro realizado!");
+        window.location.href = "index.html";
+    } catch (err) {
+        alert("Erro ao cadastrar!");
+        console.error(err);
     }
 });

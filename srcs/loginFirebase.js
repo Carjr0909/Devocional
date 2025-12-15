@@ -1,29 +1,18 @@
 import { auth } from "./firebase.js";
-import { signInWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-function showToast(msg) {
-    const toast = document.getElementById("toast");
-    toast.innerText = msg;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 3000);
-}
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const form = document.getElementById("loginForm");
-console.log(form);
+const emailInput = document.getElementById("input1");
+const senhaInput = document.getElementById("input2");
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const email = input1.value.trim();
-    const senha = input2.value;
-
     try {
-        await signInWithEmailAndPassword(auth, email, senha);
+        await signInWithEmailAndPassword(auth, emailInput.value.trim(), senhaInput.value.trim());
         window.location.href = "inicio.html";
-    } catch {
-        showToast("Email ou senha inválidos");
+    } catch (err) {
+        alert("Erro ao fazer login!");
+        console.error(err);
     }
 });
-
-console.log("JS carregou");

@@ -1,20 +1,9 @@
 const botao = document.getElementById("darkModeBtn");
+const temaSalvo = localStorage.getItem("tema");
 
-// 1️⃣ aplica o modo salvo ao carregar a página
-const modoSalvo = localStorage.getItem("tema");
+if(temaSalvo === "dark") document.body.classList.add("dark");
 
-if (modoSalvo === "dark") {
-    document.body.classList.add("dark");
-}
-
-// 2️⃣ troca o modo ao clicar
 botao.addEventListener("click", () => {
     document.body.classList.toggle("dark");
-
-    // 3️⃣ salva a escolha
-    const temaAtual = document.body.classList.contains("dark")
-        ? "dark"
-        : "light";
-
-    localStorage.setItem("tema", temaAtual);
+    localStorage.setItem("tema", document.body.classList.contains("dark") ? "dark" : "light");
 });

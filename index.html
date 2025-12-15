@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,31 +11,31 @@
 </head>
 <body>
     <div class="container-fluid" id="navbar">
-            <label class="switch">
-                <input class="checkbox" type="checkbox" id="darkModeBtn"/>
-                <span class="slider"></span>
-            </label>
-        </div>
+        <label class="switch">
+            <input class="checkbox" type="checkbox" id="darkModeBtn"/>
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div class="logocimalogin">
+        <img id="imglogin" src="srcs/img/Logo02.png">
     </div>
     <div id="cardlogin">
         <div id="container">
             <p id="title">Login</p>
             <form id="loginForm">
                 <div class="input-wrapper">
-                    <input type="email" placeholder="Seu email..." name="input" class="input" id="input1" required>
-                    <input type="password" placeholder="Sua Senha..." name="input" class="input" id="input2" required>
-                    <button type="submit" class="envio" id="input3">Enviar</button>
-                    <a href="cadastro.html" id="input4">Não Tem uma conta?</a>
+                    <input type="email" placeholder="Seu email..." class="input" id="input1" required>
+                    <input type="password" placeholder="Sua senha..." class="input" id="input2" required>
+                    <button type="submit" class="envio">Entrar</button>
+                    <a href="cadastro.html">Não tem conta?</a>
                     <a href="#" id="resetSenha">Esqueceu a senha?</a>
                 </div>
             </form>
         </div>
     </div>
 
-    <script src="srcs/dark.js"></script>
     <script type="module" src="srcs/loginFirebase.js"></script>
-    <div id="toast"></div>
+    <script src="srcs/dark.js"></script>
     <script type="module" src="srcs/resetSenha.js"></script>
-
 </body>
 </html>

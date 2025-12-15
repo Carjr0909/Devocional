@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Cadastro</title>
     <link rel="stylesheet" href="srcs/cardcadastro.css">
     <link rel="stylesheet" href="srcs/btperson.css">
     <link rel="stylesheet" href="srcs/dark.css">
@@ -11,22 +11,25 @@
 </head>
 <body>
     <div class="container-fluid" id="navbar">
-            <label class="switch">
-                <input class="checkbox" type="checkbox" id="darkModeBtn"/>
-                <span class="slider"></span>
-            </label>
-        </div>
+        <label class="switch">
+            <input class="checkbox" type="checkbox" id="darkModeBtn"/>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="logocimalogin">
+        <img id="imglogin" src="srcs/img/Logo02.png">
     </div>
     <div id="cardlogin">
         <div id="container">
             <p id="title">Cadastro</p>
             <form id="loginForm">
                 <div class="input-wrapper">
-                    <input type="email" placeholder="Insira um email..." name="input" class="input" id="input1" required>
-                    <input type="password" placeholder="Sua Senha..." name="input" class="input" id="input2" required>
-                    <input type="password" placeholder="Confirme a Senha..." name="input" class="input" id="input3" required>
-                    <button type="submit" class="btnsalve" class="envio" id="input4">Enviar</button>
-                    <a href="index.html" id="input5">Possui uma conta?</a>
+                    <input type="email" placeholder="Insira um email..." class="input" id="input1" required>
+                    <input type="password" placeholder="Sua senha..." class="input" id="input2" required>
+                    <input type="password" placeholder="Confirme a senha..." class="input" id="input3" required>
+                    <button type="submit" class="btnsalve">Enviar</button>
+                    <a href="index.html">Já possui uma conta?</a>
                 </div>
             </form>
         </div>
@@ -35,6 +38,5 @@
     <script src="srcs/dark.js"></script>
     <script type="module" src="srcs/cadastro.js"></script>
     <div id="toast"></div>
-
 </body>
 </html>

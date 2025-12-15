@@ -1,171 +1,159 @@
-body {
-    padding: 0;
+/* ================= RESET ================= */
+* {
     margin: 0;
-    background-color: var(--bg-color);
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+    min-height: 100vh;
     font-family: Arial, sans-serif;
-    transition: 0.3s;
-}
 
-#navbar{
     background-color: var(--bg-color);
+    color: var(--text-color);
+
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    flex-wrap: wrap;
-    height: 100px;
+
     transition: 0.3s;
 }
 
-#buttons{
-    display: flex;
-    gap: 10px;
-}
-
-#bthd{
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
-    border-radius: 20px;
-    border: none;
-    width: 120px;
-    height: 40px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#bthd:hover{
-    background-color: var(--btn-hover);
-    transition: 0.3s;
-}
-
-#cardlogin {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
-    background-color: white;
-    border-radius: 30px;
-}
-
-
-.input-wrapper input {
-    background-color: #eee;
-    border: none;
-    padding: 1rem;
-    font-size: 1rem;
-    width: 13em;
-    border-radius: 1rem;
-    color: lightcoral;
-    box-shadow: 0 0.4rem #dfd9d9;
-    cursor: pointer;
-}
-
-.input-wrapper button {
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
-    border: none;
-    padding: 1rem;
-    font-size: 1rem;
-    width: 13em;
-    border-radius: 1rem;
-    box-shadow: 0 0.4rem #dfd9d9;
-    cursor: pointer;
-    transition: 0.3s
-}
-
-#input1{
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#input2{
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#input3{
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#input4{
-    position: absolute;
-    top: 75%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#input4:hover{
-    background-color: var(--btn-hover);
-    transition: 0.3s;
-}
-
-#input5{
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
-.input-wrapper input:focus {
-  outline-color: lightcoral;
-}
-
-#title{
-    font-size: 50px;
-    text-align: center;
-}
-
-.btpadrao{
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
-    border-radius: 20px;
-    border: none;
-    width: 120px;
-    height: 40px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btpadrao:hover{
-    background-color: var(--btn-hover);
-    transition: 0.3s;
-}
-
-#toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #333;
-    color: #fff;
-    padding: 14px 20px;
-    border-radius: 10px;
-    font-size: 14px;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.4s;
-    z-index: 9999;
-}
-
-#toast.show {
-    opacity: 1;
-}
-
-@media (max-width: 600px) {
-  #cardlogin {
-    width: 90%;
-    height: auto;
-    padding: 20px;
-  }
-
-  .input-wrapper input,
-  .input-wrapper button {
+/* ================= NAVBAR ================= */
+#navbar {
     width: 100%;
-  }
+    height: 60px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding: 10px 20px;
+}
+
+/* ================= LOGO ================= */
+.logocimalogin {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 20px;
+}
+
+#imglogin {
+    width: 420px;
+    max-width: 95%;
+    height: auto;
+
+    filter: invert(var(--filter));
+    transition: 0.3s;
+}
+
+/* ================= CARD ================= */
+#cardlogin {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+#container {
+    width: 100%;
+    max-width: 420px;
+
+    background-color: var(--card-color);
+    color: var(--text-color);
+
+    padding: 32px;
+    border-radius: 22px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+    transition: 0.3s;
+}
+
+/* ================= TÍTULO ================= */
+#title {
+    font-size: 26px;
+    margin-bottom: 18px;
+}
+
+/* ================= FORM ================= */
+#loginForm {
+    width: 100%;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ================= INPUTS ================= */
+.input {
+    width: 100%;
+    height: 44px;
+    padding: 10px 14px;
+
+    border-radius: 14px;
+    border: none;
+    outline: none;
+
+    background-color: #ffffff;
+    font-size: 15px;
+}
+
+/* ================= BOTÃO ================= */
+.btnsalve {
+    width: 100%;
+    height: 44px;
+
+    border-radius: 22px;
+    border: none;
+
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnsalve:hover {
+    background-color: var(--btn-hover);
+}
+
+/* ================= LINK ================= */
+#input5 {
+    text-align: center;
+    font-size: 14px;
+    color: var(--btn-bg);
+    text-decoration: none;
+}
+
+#input5:hover {
+    text-decoration: underline;
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 768px) {
+    #imglogin {
+        width: 280px;
+    }
+
+    #container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    #imglogin {
+        width: 220px;
+    }
+
+    #container {
+        padding: 22px;
+    }
 }
