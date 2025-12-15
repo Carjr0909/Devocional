@@ -92,6 +92,7 @@ function carregarBiblia() {
     }
 
     const livroApi = livro.value; // em inglês
+    const livroPt = livro.options[livro.selectedIndex].text; // nome em português
     const cap = capitulo.value;
     const versiculosInput = versiculos.value.trim();
 
@@ -114,7 +115,13 @@ function carregarBiblia() {
             .then(res => {
                 if (!res.ok) throw new Error(`Versículo ${verse} não encontrado`);
                 return res.json();
-            });
+            })
+            .then(data => ({
+                book_name: livroPt, // garante o nome em português
+                chapter: cap,
+                verse: verse,
+                text: data.text
+            }));
     }))
     .then(results => {
         textoBiblico.innerHTML = "";
@@ -124,7 +131,7 @@ function carregarBiblia() {
 
         // salvar leitura atual
         localStorage.setItem("livroAtual", livro.value);
-        localStorage.setItem("capituloAtual", capitulo.value);
+        localStorage.setItem("capituloAtual", cap);
         localStorage.setItem("versiculosAtual", versiculos.value);
     })
     .catch(err => {
@@ -132,6 +139,7 @@ function carregarBiblia() {
         textoBiblico.innerHTML = "Um ou mais versículos não foram encontrados.";
     });
 }
+
 
 
 
