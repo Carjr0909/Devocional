@@ -1,5 +1,3 @@
-// script2.js — Bíblia + API
-
 const livro = document.getElementById("livro");
 const capitulo = document.getElementById("capitulo");
 const versiculos = document.getElementById("versiculos");
@@ -74,7 +72,7 @@ const livrosBiblia = [
     { pt: "Apocalipse", en: "revelation" }
 ];
 
-// Popular livros na <select>
+// popular select
 livrosBiblia.forEach(l => {
     const opt = document.createElement("option");
     opt.value = l.en;
@@ -82,7 +80,6 @@ livrosBiblia.forEach(l => {
     livro.appendChild(opt);
 });
 
-// Botão carregar
 document.getElementById("btnCarregar").onclick = carregarBiblia;
 
 function carregarBiblia() {
@@ -91,9 +88,11 @@ function carregarBiblia() {
         return;
     }
 
-    // usar nome em inglês da API
-    const livroApi = livro.value; // já é o valor 'en' do select
-    const url = `https://bible-api.com/${livroApi}+${capitulo.value}:${versiculos.value}?translation=almeida`;
+    const livroApi = livro.value;
+    const cap = capitulo.value;
+    const vers = versiculos.value.replace(/\s+/g, ""); // remove espaços
+    const query = `${livroApi}+${cap}:${vers}`;
+    const url = `https://bible-api.com/${encodeURIComponent(query)}?translation=almeida`;
 
     textoBiblico.innerHTML = "Carregando...";
 
@@ -120,18 +119,3 @@ function carregarBiblia() {
             textoBiblico.innerHTML = "Erro ao carregar a Bíblia.";
         });
 }
-
-
-// Carregar última leitura ao abrir página
-window.onload = () => {
-    const livroSalvo = localStorage.getItem("livroAtual");
-    const capituloSalvo = localStorage.getItem("capituloAtual");
-    const versiculosSalvo = localStorage.getItem("versiculosAtual");
-
-    if (livroSalvo && capituloSalvo && versiculosSalvo) {
-        livro.value = livroSalvo;
-        capitulo.value = capituloSalvo;
-        versiculos.value = versiculosSalvo;
-        carregarBiblia();
-    }
-};
