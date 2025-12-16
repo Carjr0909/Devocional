@@ -11,6 +11,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const container = document.getElementById("listaDevocionais");
+const inputPesquisa = document.getElementById("pesquisaDevocional");
+
+let listaDevocionais = [];
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -26,11 +29,25 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
+  // 👉 salva em array
+  listaDevocionais = snapshot.docs.map(docSnap => ({
+    id: docSnap.id,
+    ...docSnap.data()
+  }));
+
+  // 👉 ordena por data (mais recente primeiro)
+  listaDevocionais.sort((a, b) =>
+    new Date(b.data) - new Date(a.data)
+  );
+
+  renderizar(listaDevocionais);
+});
+
+// ================= RENDER =================
+function renderizar(lista) {
   container.innerHTML = "";
 
-  snapshot.forEach((docSnap) => {
-    const d = docSnap.data();
-
+  lista.forEach(d => {
     const card = document.createElement("div");
     card.className = "card";
 
@@ -48,7 +65,7 @@ onAuthStateChanged(auth, async (user) => {
 
     // ✏️ Editar
     card.querySelector(".editar").onclick = () => {
-      localStorage.setItem("devocionalEmEdicao", docSnap.id);
+      localStorage.setItem("devocionalEmEdicao", d.id);
       window.location.href = "inicio.html";
     };
 
@@ -56,7 +73,7 @@ onAuthStateChanged(auth, async (user) => {
     card.querySelector(".excluir").onclick = async () => {
       if (confirm("Deseja excluir este devocional?")) {
         await deleteDoc(
-          doc(db, "devocionais", user.uid, "itens", docSnap.id)
+          doc(db, "devocionais", auth.currentUser.uid, "itens", d.id)
         );
         location.reload();
       }
@@ -68,7 +85,7 @@ onAuthStateChanged(auth, async (user) => {
       if (!novoNome || !novoNome.trim()) return;
 
       await updateDoc(
-        doc(db, "devocionais", user.uid, "itens", docSnap.id),
+        doc(db, "devocionais", auth.currentUser.uid, "itens", d.id),
         { nome: novoNome.trim() }
       );
 
@@ -78,4 +95,17 @@ onAuthStateChanged(auth, async (user) => {
 
     container.appendChild(card);
   });
+}
+
+// ================= PESQUISA =================
+inputPesquisa.addEventListener("input", () => {
+  const termo = inputPesquisa.value.toLowerCase();
+
+  const filtrados = listaDevocionais.filter(d =>
+    d.nome.toLowerCase().includes(termo) ||
+    d.livro.toLowerCase().includes(termo) ||
+    d.versiculos.toLowerCase().includes(termo)
+  );
+
+  renderizar(filtrados);
 });
