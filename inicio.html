@@ -4,30 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
+    <!-- CSS -->
     <link rel="stylesheet" href="srcs/style.css">
     <link rel="stylesheet" href="srcs/dark.css">
     <link rel="stylesheet" href="srcs/btperson.css">
+    <!-- Ícones Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="srcs/img/Logo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 <body>
-    <div class="container-fluid" id="navbar">
+    <!-- Navbar -->
+    <header class="container-fluid" id="navbar">
         <a href="inicio.html">
             <img id="logo" src="srcs/img/Logo02.png" alt="logo">
         </a>
         <div id="buttons">
-            <button class="btn btn-primary btn-lg" id="bthd" onclick="window.location.href='devocionais.html'"><b>Devocionais</b></button>
-            <button id="logout" class="btpadrao">Sair</button>
+            <button class="btn btn-primary btn-lg" id="bthd" onclick="window.location.href='devocionais.html'">
+                <span class="material-symbols-outlined">menu_book</span> Devocionais
+            </button>
+            <button id="btnNovoDevocional" class="btn btn-success btn-lg">
+                <span class="material-symbols-outlined">add</span> Novo Devocional
+            </button>
+            <button id="logout" class="btpadrao">
+                <span class="material-symbols-outlined">logout</span> Sair
+            </button>
             <label class="switch">
                 <input class="checkbox" type="checkbox" id="darkModeBtn"/>
                 <span class="slider"></span>
             </label>
         </div>
-    </div>
+    </header>
 
-    <!-- Devocionais + Bíblia -->
-    <div class="container-fluid" id="nav">
-        <div id="p1" class="container-row">
+    <!-- Conteúdo Principal -->
+    <main class="container-fluid" id="nav">
+        <!-- Bíblia -->
+        <section id="p1" class="container-row">
             <div id="biblia">
                 <h2 id="titlebible">Leitura Bíblica</h2>
                 <select id="livro"></select>
@@ -36,24 +48,27 @@
                 <button id="btnCarregar">Carregar</button>
                 <div id="textoBiblico"></div>
             </div>
-        </div>
-        <div id="p2" class="container-row">
-            <p id="titleant"><b>Anotações</b></p>
+        </section>
+
+        <!-- Anotações -->
+        <section id="p2" class="container-row">
+            <h2 id="titleant">Anotações</h2>
             <div id="editor">
-                <button type="button" id="btnModalColor" class="btedit"><span class="material-symbols-outlined">format_color_text</span></button>
-                <button type="button" id="btnModalColorfd" class="btedit"><span class="material-symbols-outlined">colors</span></button>
+                <button type="button" id="btnModalColor" class="btedit">Cor Texto</button>
+                <button type="button" id="btnModalColorfd" class="btedit">Cor Fundo</button>
                 <button type="button" id="btnBold" class="btedit"><b>N</b></button>
                 <button type="button" id="btnItalic" class="btedit"><b>I</b></button>
                 <button type="button" id="btnUnderline" class="btedit"><b>U</b></button>
-                <button type="button" id="btnClear" class="btedit">L</button>
+                <button type="button" id="btnClear" class="btedit"><span class="material-symbols-outlined">format_clear</span></button>
             </div>
             <div id="mensagem" contenteditable="true"></div>
             <div class="btn-area">
-                <button class="btn btn-primary btn-lg" id="btnsalve"><b>Salvar</b></button>
+                <button class="btn btn-primary btn-lg" id="btnsalve">Salvar</button>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
+    <!-- Modal Salvar Devocional -->
     <div id="modalSalvar" class="modal">
         <div class="modal-content">
             <h3>Salvar Devocional</h3>
@@ -65,12 +80,17 @@
         </div>
     </div>
 
-    <footer><p>&copy; 2025 Rodapé Fixo na Tela</p></footer>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Rodapé Fixo na Tela</p>
+    </footer>
 
+    <!-- Scripts -->
     <script type="module" src="srcs/script.js"></script>
     <script src="srcs/biblia.js"></script>
     <script src="srcs/dark.js"></script>
     <script type="module" src="srcs/logout.js"></script>
     <script type="module" src="srcs/auth-guard.js"></script>
+
 </body>
 </html>

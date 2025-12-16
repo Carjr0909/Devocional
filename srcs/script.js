@@ -196,4 +196,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  const btnNovoDevocional = document.getElementById("btnNovoDevocional");
+  const livro = document.getElementById("livro");
+  const capitulo = document.getElementById("capitulo");
+  const versiculos = document.getElementById("versiculos");
+  const textoBiblico = document.getElementById("textoBiblico");
+
+  btnNovoDevocional.addEventListener("click", () => {
+      // Limpa os campos da Bíblia
+      livro.value = "";
+      capitulo.value = "";
+      versiculos.value = "";
+      textoBiblico.innerHTML = "";
+
+      // Limpa editor de anotações
+      mensagem.innerHTML = "";
+
+      // Remove devocional salvo no localStorage
+      localStorage.removeItem("livroAtual");
+      localStorage.removeItem("capituloAtual");
+      localStorage.removeItem("versiculosAtual");
+      localStorage.removeItem("mensagemAtual");
+
+      alert("Novo devocional iniciado!");
+  });
+
 });
