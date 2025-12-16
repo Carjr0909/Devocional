@@ -18,8 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const mensagem = document.getElementById("mensagem");
 
   const modalSalvar = document.getElementById("modalSalvar");
-  const modalCores = document.getElementById("modalcores");
-  const modalCoresfd = document.getElementById("modalcoresfd");
 
   const nomeInput = document.getElementById("nomeDevocional");
 
@@ -38,6 +36,83 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnNovoDevocional = document.getElementById("btnNovoDevocional");
   const btnDevocionais = document.getElementById("bthd");
   const btnLogout = document.getElementById("logout");
+
+  // ================= MODAIS DE CORES =================
+
+// elementos
+const modalCores = document.getElementById("modalcores");
+const modalCoresfd = document.getElementById("modalcoresfd");
+
+const btnAbrirCorTexto = document.getElementById("btnModalColor");
+const btnAbrirCorFundo = document.getElementById("btnModalColorfd");
+
+const btnFecharCorTexto = document.getElementById("fecharmodalcolor");
+const btnFecharCorFundo = document.getElementById("fecharmodalcolorfd");
+
+// abrir modais
+btnAbrirCorTexto.addEventListener("click", () => {
+  modalCores.style.display = "flex";
+});
+
+btnAbrirCorFundo.addEventListener("click", () => {
+  modalCoresfd.style.display = "flex";
+});
+
+// fechar pelos botões X
+btnFecharCorTexto.addEventListener("click", () => {
+  modalCores.style.display = "none";
+});
+
+btnFecharCorFundo.addEventListener("click", () => {
+  modalCoresfd.style.display = "none";
+});
+
+// fechar clicando fora
+modalCores.addEventListener("click", (e) => {
+  if (e.target === modalCores) {
+    modalCores.style.display = "none";
+  }
+});
+
+modalCoresfd.addEventListener("click", (e) => {
+  if (e.target === modalCoresfd) {
+    modalCoresfd.style.display = "none";
+  }
+});
+
+// ================= CORES TEXTO =================
+const coresTexto = {
+  btBlack: "black",
+  btRed: "red",
+  btBlue: "blue",
+  btGreen: "green",
+  btPurple: "purple",
+  btYellow: "yellow"
+};
+
+Object.keys(coresTexto).forEach(id => {
+  document.getElementById(id).addEventListener("click", () => {
+    document.execCommand("foreColor", false, coresTexto[id]);
+    modalCores.style.display = "none";
+  });
+});
+
+// ================= CORES FUNDO =================
+const coresFundo = {
+  btBlackfd: "black",
+  btRedfd: "red",
+  btBluefd: "blue",
+  btGreenfd: "green",
+  btPurplefd: "purple",
+  btYellowfd: "yellow"
+};
+
+Object.keys(coresFundo).forEach(id => {
+  document.getElementById(id).addEventListener("click", () => {
+    document.execCommand("hiliteColor", false, coresFundo[id]);
+    modalCoresfd.style.display = "none";
+  });
+});
 
   // ---------- CONTROLE ----------
   let usuarioLogado = null;
