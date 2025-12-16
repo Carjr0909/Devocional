@@ -99,37 +99,52 @@ function carregarBiblia() {
   textoBiblico.innerHTML = "Carregando...";
 
   // Sempre busca o capítulo inteiro (estável)
-  fetch(`https://www.abibliadigital.com.br/api/verses/nvi/${livroApi}/${cap}`)
-    .then(res => {
-      if (!res.ok) throw new Error("Capítulo não encontrado");
-      return res.json();
-    })
-    .then(data => {
+ fetch(`https://www.abibliadigital.com.br/api/verses/nvi/${livroApi}/${cap}`, {
+  headers: {
+    "Accept": "application/json"
+  }
+})
+  .then(async res => {
+    if (!res.ok) {
+      const t = await res.text();
+      throw new Error(`HTTP ${res.status} → ${t}`);
+    }
+    return res.json();
+  })
+  .then(data => {
 
-      const lista = parseVersiculos(entrada);
-      const filtrados = data.verses.filter(v =>
-        lista.includes(v.number)
-      );
+    console.log("Resposta da API:", data);
 
-      if (!filtrados.length) {
-        textoBiblico.innerHTML = "Versículo(s) não encontrado(s).";
-        return;
-      }
+    if (!data.verses || !Array.isArray(data.verses)) {
+      throw new Error("Formato inesperado da API");
+    }
 
-      textoBiblico.innerHTML = filtrados.map(v => `
-        <p>
-          <b>${livroPt} ${cap}:${v.number}</b><br>
-          ${v.text}
-        </p>
-      `).join("");
+    const lista = parseVersiculos(entrada);
+    const filtrados = data.verses.filter(v =>
+      lista.includes(v.number)
+    );
 
-      localStorage.setItem("livroAtual", livroApi);
-      localStorage.setItem("capituloAtual", cap);
-      localStorage.setItem("versiculosAtual", entrada);
-    })
-    .catch(() => {
-      textoBiblico.innerHTML = "Erro ao carregar o texto bíblico.";
-    });
+    if (!filtrados.length) {
+      textoBiblico.innerHTML = "Versículo(s) não encontrado(s).";
+      return;
+    }
+
+    textoBiblico.innerHTML = filtrados.map(v => `
+      <p>
+        <b>${livroPt} ${cap}:${v.number}</b><br>
+        ${v.text}
+      </p>
+    `).join("");
+
+    localStorage.setItem("livroAtual", livroApi);
+    localStorage.setItem("capituloAtual", cap);
+    localStorage.setItem("versiculosAtual", entrada);
+  })
+  .catch(err => {
+    console.error("ERRO BÍBLIA:", err);
+    textoBiblico.innerHTML = "Erro ao carregar o texto bíblico.";
+  });
+
 }
 
 // converte "1,3-5" → [1,3,4,5]
