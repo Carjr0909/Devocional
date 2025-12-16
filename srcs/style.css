@@ -246,7 +246,6 @@ footer {
   #p1,
   #p2 {
     max-width: 100%;
-    min-width: 300px;
   }
 }
 
@@ -265,6 +264,12 @@ footer {
   #btnsalve {
     width: 100%;
     max-width: 300px;
+  }
+
+  #p1,
+  #p2 {
+    max-width: 100%;
+    min-width: 300px;
   }
 
   #mensagem {
