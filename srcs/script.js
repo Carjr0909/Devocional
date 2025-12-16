@@ -203,22 +203,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const textoBiblico = document.getElementById("textoBiblico");
 
   btnNovoDevocional.addEventListener("click", () => {
-      // Limpa os campos da Bíblia
-      livro.value = "";
-      capitulo.value = "";
-      versiculos.value = "";
-      textoBiblico.innerHTML = "";
 
-      // Limpa editor de anotações
-      mensagem.innerHTML = "";
+    // Limpa edição
+    localStorage.removeItem("devocionalEmEdicao");
 
-      // Remove devocional salvo no localStorage
-      localStorage.removeItem("livroAtual");
-      localStorage.removeItem("capituloAtual");
-      localStorage.removeItem("versiculosAtual");
-      localStorage.removeItem("mensagemAtual");
+    // Limpa campos bíblicos
+    document.getElementById("livro").value = "";
+    document.getElementById("capitulo").value = "";
+    document.getElementById("versiculos").value = "";
+    document.getElementById("textoBiblico").innerHTML = "";
 
-      alert("Novo devocional iniciado!");
+    // Limpa anotações
+    mensagem.innerHTML = "";
+
+    // Volta para modo "novo"
+    btnSalvar.innerText = "Salvar";
+    nomeInput.style.display = "block";
+    nomeInput.value = "";
+
+    alert("Novo devocional iniciado!");
   });
+
 
 });
