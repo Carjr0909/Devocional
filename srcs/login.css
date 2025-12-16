@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
     font-family: Arial, sans-serif;
 
-    background: linear-gradient(135deg, #6a00ff, #8e2de2);
+    background-color: var(--bg-color);
     color: var(--text-color);
 
     display: flex;
