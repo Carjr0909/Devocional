@@ -70,7 +70,7 @@ body {
     flex-direction: column;
     align-items: center;
 
-    box-shadow: 0 15px 35px rgba(177, 177, 177, 0.35);
+    box-shadow: 0 15px 35px rgba(177, 177, 177, 177);
     transition: 0.3s;
 }
 

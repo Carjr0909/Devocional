@@ -9,7 +9,7 @@ body {
     min-height: 100vh;
     font-family: Arial, sans-serif;
 
-    background-color: var(--bg-color);
+    background: linear-gradient(135deg, #6a00ff, #8e2de2);
     color: var(--text-color);
 
     display: flex;
@@ -71,7 +71,7 @@ body {
     flex-direction: column;
     align-items: center;
 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    box-shadow: 0 15px 35px rgba(177, 177, 177, 177);
     transition: 0.3s;
 }
 
