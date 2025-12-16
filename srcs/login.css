@@ -39,8 +39,10 @@ body {
 }
 
 #imglogin {
-    width: 420px; /* 🔥 GRANDE NO PC */
+    width: 600px; /* 🔥 GRANDE NO PC */
     max-width: 95%;
+    margin-left: -30px;
+    margin-top: -20px;
     height: auto;
 
     filter: invert(var(--filter));
@@ -126,7 +128,7 @@ body {
 
 /* ================= LINKS ================= */
 #input4,
-#resetSenha {
+.questionslogin {
     text-align: center;
     font-size: 14px;
     color: var(--btn-bg);
