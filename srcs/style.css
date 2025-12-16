@@ -249,40 +249,90 @@ footer {
   }
 }
 
+/* ================== MELHORIAS MOBILE ================== */
+
+/* Área dos botões principais */
+.btn-area {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* Evita botões colados */
+#buttons {
+  gap: 12px;
+}
+
+/* ================== MOBILE ================== */
 @media (max-width: 768px) {
-  #navbar {
+
+  /* Layout principal */
+  #nav {
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+    padding: 15px;
   }
 
-  #buttons {
-    justify-content: center;
+  /* p1 e p2 MESMO TAMANHO */
+  #p1,
+  #p2 {
+    width: 100%;
+    max-width: 100%;
+    min-width: unset;
   }
 
+  /* Bíblia e Anotações mais equilibrados */
+  #p1,
+  #p2 {
+    padding: 16px;
+  }
+
+  /* Botões grandes e bem espaçados */
   #bthd,
   .btpadrao,
   #btnsalve {
     width: 100%;
-    max-width: 300px;
-  }
-
-  #p1,
-  #p2 {
     max-width: 100%;
-    min-width: 300px;
+    height: 44px;
   }
 
+  /* Editor não muito alto */
   #mensagem {
-    min-height: 200px;
+    min-height: 180px;
+  }
+
+  /* Cards mais confortáveis */
+  .cards {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
+  /* Botões dos cards não colados */
+  .card-buttons {
+    gap: 10px;
+  }
+
+  .card-buttons button {
+    flex: 1;
   }
 }
 
+/* ================== MOBILE PEQUENO ================== */
 @media (max-width: 480px) {
+
   #logo {
-    height: 60px;
+    height: 56px;
   }
 
   body {
     font-size: 14px;
   }
+
+  /* Espaço extra entre botões */
+  .btn-area {
+    gap: 14px;
+  }
 }
+
