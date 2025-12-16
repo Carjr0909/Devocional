@@ -126,7 +126,7 @@ body {
 }
 
 /* ================= LINK ================= */
-#input5 {
+.questionslogin {
     text-align: center;
     font-size: 14px;
     color: var(--btn-bg);
