@@ -1,4 +1,4 @@
-// biblia.js — A Bíblia Digital (sem token)
+// biblia.js — A Bíblia Digital (estável, sem erro 500)
 
 const livro = document.getElementById("livro");
 const capitulo = document.getElementById("capitulo");
@@ -18,18 +18,63 @@ const livrosBiblia = [
   { pt: "2 Samuel", api: "2sm" },
   { pt: "1 Reis", api: "1rs" },
   { pt: "2 Reis", api: "2rs" },
+  { pt: "1 Crônicas", api: "1cr" },
+  { pt: "2 Crônicas", api: "2cr" },
+  { pt: "Esdras", api: "ed" },
+  { pt: "Neemias", api: "ne" },
+  { pt: "Ester", api: "et" },
+  { pt: "Jó", api: "job" }, // ← atenção aqui
   { pt: "Salmos", api: "sl" },
   { pt: "Provérbios", api: "pv" },
+  { pt: "Eclesiastes", api: "ec" },
+  { pt: "Cânticos", api: "ct" },
   { pt: "Isaías", api: "is" },
+  { pt: "Jeremias", api: "jr" },
+  { pt: "Lamentações", api: "lm" },
+  { pt: "Ezequiel", api: "ez" },
+  { pt: "Daniel", api: "dn" },
+  { pt: "Oséias", api: "os" },
+  { pt: "Joel", api: "jl" },
+  { pt: "Amós", api: "am" },
+  { pt: "Obadias", api: "ob" },
+  { pt: "Jonas", api: "jn" },
+  { pt: "Miqueias", api: "mq" },
+  { pt: "Naum", api: "na" },
+  { pt: "Habacuque", api: "hc" },
+  { pt: "Sofonias", api: "sf" },
+  { pt: "Ageu", api: "ag" },
+  { pt: "Zacarias", api: "zc" },
+  { pt: "Malaquias", api: "ml" },
   { pt: "Mateus", api: "mt" },
   { pt: "Marcos", api: "mc" },
   { pt: "Lucas", api: "lc" },
   { pt: "João", api: "jo" },
+  { pt: "Atos", api: "at" },
   { pt: "Romanos", api: "rm" },
+  { pt: "1 Coríntios", api: "1co" },
+  { pt: "2 Coríntios", api: "2co" },
+  { pt: "Gálatas", api: "gl" },
+  { pt: "Efésios", api: "ef" },
+  { pt: "Filipenses", api: "fp" },
+  { pt: "Colossenses", api: "cl" },
+  { pt: "1 Tessalonicenses", api: "1ts" },
+  { pt: "2 Tessalonicenses", api: "2ts" },
+  { pt: "1 Timóteo", api: "1tm" },
+  { pt: "2 Timóteo", api: "2tm" },
+  { pt: "Tito", api: "tt" },
+  { pt: "Filemom", api: "fm" },
+  { pt: "Hebreus", api: "hb" },
+  { pt: "Tiago", api: "tg" },
+  { pt: "1 Pedro", api: "1pe" },
+  { pt: "2 Pedro", api: "2pe" },
+  { pt: "1 João", api: "1jo" },
+  { pt: "2 João", api: "2jo" },
+  { pt: "3 João", api: "3jo" },
+  { pt: "Judas", api: "jd" },
   { pt: "Apocalipse", api: "ap" }
 ];
 
-// popula dropdown
+// popular livros
 livrosBiblia.forEach(l => {
   const opt = document.createElement("option");
   opt.value = l.api;
@@ -49,51 +94,51 @@ function carregarBiblia() {
   const livroApi = livro.value;
   const livroPt = livro.options[livro.selectedIndex].text;
   const cap = capitulo.value.trim();
-  const vers = versiculos.value.replace(/\s+/g, "");
+  const entrada = versiculos.value.replace(/\s+/g, "");
 
   textoBiblico.innerHTML = "Carregando...";
 
-  const partes = vers.split(",");
-
-  Promise.all(
-    partes.map(v => {
-      if (v.includes("-")) {
-        return fetchCapitulo(livroApi, cap, v);
-      }
-      return fetchVersiculo(livroApi, cap, v);
+  // Sempre busca o capítulo inteiro (estável)
+  fetch(`https://www.abibliadigital.com.br/api/verses/nvi/${livroApi}/${cap}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Capítulo não encontrado");
+      return res.json();
     })
-  )
-  .then(res => {
-    textoBiblico.innerHTML = res.flat().map(v => `
-      <p>
-        <b>${livroPt} ${v.chapter}:${v.number}</b><br>
-        ${v.text}
-      </p>
-    `).join("");
+    .then(data => {
 
-    localStorage.setItem("livroAtual", livroApi);
-    localStorage.setItem("capituloAtual", cap);
-    localStorage.setItem("versiculosAtual", vers);
-  })
-  .catch(() => {
-    textoBiblico.innerHTML = "Erro ao carregar texto bíblico.";
+      const lista = parseVersiculos(entrada);
+      const filtrados = data.verses.filter(v =>
+        lista.includes(v.number)
+      );
+
+      if (!filtrados.length) {
+        textoBiblico.innerHTML = "Versículo(s) não encontrado(s).";
+        return;
+      }
+
+      textoBiblico.innerHTML = filtrados.map(v => `
+        <p>
+          <b>${livroPt} ${cap}:${v.number}</b><br>
+          ${v.text}
+        </p>
+      `).join("");
+
+      localStorage.setItem("livroAtual", livroApi);
+      localStorage.setItem("capituloAtual", cap);
+      localStorage.setItem("versiculosAtual", entrada);
+    })
+    .catch(() => {
+      textoBiblico.innerHTML = "Erro ao carregar o texto bíblico.";
+    });
+}
+
+// converte "1,3-5" → [1,3,4,5]
+function parseVersiculos(txt) {
+  return txt.split(",").flatMap(p => {
+    if (p.includes("-")) {
+      const [i, f] = p.split("-").map(Number);
+      return Array.from({ length: f - i + 1 }, (_, x) => i + x);
+    }
+    return Number(p);
   });
-}
-
-function fetchVersiculo(livro, cap, vers) {
-  return fetch(
-    `https://www.abibliadigital.com.br/api/verses/nvi/${livro}/${cap}/${vers}`
-  )
-  .then(r => r.json())
-  .then(v => [v]);
-}
-
-function fetchCapitulo(livro, cap, intervalo) {
-  const [i, f] = intervalo.split("-").map(Number);
-
-  return fetch(
-    `https://www.abibliadigital.com.br/api/verses/nvi/${livro}/${cap}`
-  )
-  .then(r => r.json())
-  .then(d => d.verses.filter(v => v.number >= i && v.number <= f));
 }
