@@ -83,16 +83,17 @@ body {
 }
 
 .titlemmv {
-    font-size: 20px;
+    font-size: 25px;
     margin-bottom: 15px;
 }
 
 .textommv {
-    font-size: 14px;
+    font-size: 19px;
 }
 
 .card-content ul {
     list-style: none;
+    font-size: 19px;
     padding: 0;
 }
 
