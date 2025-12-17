@@ -15,6 +15,8 @@ const inputPesquisa = document.getElementById("pesquisaDevocional");
 
 let listaDevocionais = [];
 
+<link rel="stylesheet" href="srcs/style.css"></link>
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "index.html";
@@ -52,9 +54,9 @@ function renderizar(lista) {
     card.className = "card";
 
     card.innerHTML = `
-      <h3 class="nome-devocional">${d.nome}</h3>
-      <p><b>${d.livro} ${d.capitulo}:${d.versiculos}</b></p>
-      <small>${d.data}</small>
+      <h3 class="textosfomat" class="nome-devocional">${d.nome}</h3>
+      <p class="textosfomat"><b>${d.livro} ${d.capitulo}:${d.versiculos}</b></p>
+      <small class="textosfomat">${d.data}</small>
 
       <div class="card-buttons">
         <button class="btpadrao editar">Editar</button>

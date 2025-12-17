@@ -49,6 +49,10 @@ footer {
   flex-wrap: wrap;
 }
 
+.textosfomat{
+  color: var(--text-color);
+}
+
 /* ================== BOTÕES ================== */
 #bthd,
 .btpadrao,
