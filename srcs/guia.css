@@ -1,0 +1,136 @@
+/* ================== BODY ================== */
+body {
+    background-color: var(--bg-color);
+    font-family: Arial, sans-serif;
+    transition: 0.3s;
+    padding-bottom: 60px; /* espaço para o footer */
+}
+
+/* ================== LOGO ================== */
+.logocimalogin {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 20px;
+}
+
+#imglogin {
+    width: 400px;              /* grande no PC */
+    max-width: 95%;
+    height: auto;
+
+    filter: invert(var(--filter));
+    transition: 0.3s;
+}
+
+/* ================== CONTAINER PRINCIPAL ================== */
+#cardsobre {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+#container {
+    width: 100%;
+    max-width: 1200px;
+
+    background-color: var(--card-color);
+    color: var(--text-color);
+
+    padding: 30px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    box-shadow: 0 15px 35px var(--boxshedow);
+    transition: 0.3s;
+}
+
+/* ================== TÍTULO ================== */
+#titulocardguia {
+    text-align: center;
+}
+
+#title {
+    font-size: 28px;
+}
+
+/* ================== CARDS ================== */
+#cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* quebra automaticamente se faltar espaço */
+}
+
+/* CARD INDIVIDUAL */
+.cardmmv {
+    width: 300px;
+    height: 300px;
+
+    background-color: var(--bg-color);
+    color: var(--text-color);
+
+    border-radius: 20px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+
+    box-shadow: 0 3px 5px var(--boxshedow);
+    transition: 0.3s;
+}
+
+/* HOVER */
+.cardmmv:hover {
+    transform: translateY(-5px);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.titlemmv {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.textommv{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.card-content ul {
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.textov {
+    margin-top: 10px;
+}
+
+
+/* ================== RESPONSIVO ================== */
+@media (max-width: 768px) {
+    #imglogin {
+        width: 320px;
+    }
+
+    #cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cardmmv {
+        width: 90%;
+        max-width: 300px;
+    }
+}

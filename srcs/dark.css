@@ -8,6 +8,7 @@
     --btn-hover: #65296e;
     --back: #EFEFEF;
     --filter: 0%;
+    --boxshedow: rgba(0,0,0,0.25);
 }
 
 body.dark {
@@ -19,4 +20,5 @@ body.dark {
     --btn-hover: #575757;
     --back: #5A595D;
     --filter: 100%;
+    --boxshedow: rgba(177,177,177,177.35);
 }
