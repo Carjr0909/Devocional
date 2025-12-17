@@ -141,22 +141,3 @@ body {
 }
 
 /* ================= RESPONSIVO ================= */
-@media (max-width: 768px) {
-    #imglogin {
-        width: 280px;
-    }
-
-    #container {
-        max-width: 90%;
-    }
-}
-
-@media (max-width: 480px) {
-    #imglogin {
-        width: 220px;
-    }
-
-    #container {
-        padding: 22px;
-    }
-}

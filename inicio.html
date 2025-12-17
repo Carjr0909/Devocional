@@ -18,9 +18,9 @@
             <img id="logo" src="srcs/img/Logo02.png" alt="logo">
         </a>
         <div id="buttons">
-            <button class="btn btn-primary btn-lg" id="bthd" onclick="window.location.href='devocionais.html'"><b>Anotações</b></button>
+            <button class="btpadrao" id="bthda" onclick="window.location.href='devocionais.html'"><b>Anotações</b></button>
             <button id="logout" class="btpadrao"><span class="material-symbols-outlined">logout</span></button>
-            <button class="btn btn-primary btn-lg" id="bthd" onclick="window.location.href='guia.html'"><b>Sobre</b></button>
+            <button class="btpadrao" id="bthdb" onclick="window.location.href='guia.html'"><b>Sobre</b></button>
             <label class="switch">
                 <input class="checkbox" type="checkbox" id="darkModeBtn"/>
                 <span class="slider"></span>
@@ -54,6 +54,7 @@
             <div class="btn-area">
                 <button class="btpadrao" id="btnNovoDevocional">Novo Devocional</button>
                 <button class="btn btn-primary btn-lg" id="btnsalve"><b>Salvar</b></button>
+                <button onclick="exportToPdf()" class="btpadrao">Exportar para PDF</button>
             </div>
         </div>
     </div>
@@ -101,5 +102,9 @@
     <script src="srcs/dark.js"></script>
     <script type="module" src="srcs/logout.js"></script>
     <script type="module" src="srcs/auth-guard.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
 </body>
 </html>
