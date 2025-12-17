@@ -52,8 +52,8 @@ function renderizar(lista) {
     card.className = "card";
 
     card.innerHTML = `
-      <h3 class="nome-devocional">${d.nome}</h3>
-      <p><b>${d.livro} ${d.capitulo}:${d.versiculos}</b></p>
+      <h3 textosfomat class="nome-devocional">${d.nome}</h3>
+      <p class="textosfomat"><b>${d.livro} ${d.capitulo}:${d.versiculos}</b></p>
       <small>${d.data}</small>
 
       <div class="card-buttons">
