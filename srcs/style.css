@@ -326,13 +326,17 @@ footer {
   .card-buttons button {
     flex: 1;
   }
+
+  #logo {
+    height: 120px;
+  }
 }
 
 /* ================== MOBILE PEQUENO ================== */
 @media (max-width: 480px) {
 
   #logo {
-    height: 56px;
+    height: 70px;
   }
 
   body {
