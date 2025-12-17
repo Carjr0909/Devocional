@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--back);
   font-family: Arial, sans-serif;
   transition: 0.3s;
   padding-bottom: 60px; /* espaço pro footer */
