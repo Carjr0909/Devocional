@@ -20,6 +20,9 @@
         <a href="inicio.html">
             <img id="logo" src="srcs/img/Logo02.png" alt="logo">
         </a>
+        <button id="btnInstall" class="btpadrao" style="display:none;">
+            📲 Instalar App
+        </button>
         <i id="burguer" class="material-symbols-outlined" onclick="clickhb()">menu</i>
         <div id="buttons">
             <div class="toggle-switch">
@@ -61,5 +64,8 @@
         .catch(err => console.log("SW erro", err));
     }
     </script>
+
+    <script src="srcs/pwa-install.js"></script>
+
 </body>
 </html>
