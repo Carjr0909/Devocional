@@ -121,6 +121,10 @@ footer {
   color: var(--text-color);
 }
 
+#titledevocional{
+  margin-top: 15px;
+}
+
 #editor {
   display: flex;
   flex-wrap: wrap;
@@ -253,7 +257,6 @@ footer {
 }
 
 /* ================== MELHORIAS MOBILE ================== */
-
 
 /* Área dos botões principais */
 .btn-area {
