@@ -1,12 +1,22 @@
-// ================= PWA INSTALL (SEGURO) =================
 document.addEventListener("DOMContentLoaded", () => {
-
   const btnInstall = document.getElementById("btnInstall");
-
-  // Se não existir o botão, NÃO faz nada
   if (!btnInstall) return;
 
   let deferredPrompt = null;
+  let isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  if (isIOS) {
+    btnInstall.style.display = "block";
+    btnInstall.textContent = "📲 Adicionar à Tela Inicial";
+    btnInstall.onclick = () => {
+      alert(
+        "No iPhone:\n\n" +
+        "1. Toque em Compartilhar\n" +
+        "2. Adicionar à Tela de Início"
+      );
+    };
+    return;
+  }
 
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
@@ -14,14 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
     btnInstall.style.display = "block";
   });
 
-  btnInstall.onclick = async () => {
+  btnInstall.addEventListener("click", async () => {
     if (!deferredPrompt) return;
 
     deferredPrompt.prompt();
     await deferredPrompt.userChoice;
 
-    deferredPrompt = null;
     btnInstall.style.display = "none";
-  };
-
+    deferredPrompt = null;
+  });
 });
