@@ -1,0 +1,28 @@
+#burguer {
+    display: none;
+}
+
+#buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+@media (max-width: 768px) {
+    #burguer {
+        display: block;
+        cursor: pointer;
+    }
+
+    #buttons {
+        display: none; /* começa fechado */
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .toggle-switch {
+        margin: 10px 0;
+    }
+}

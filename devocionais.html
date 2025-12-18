@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="srcs/style.css">
     <link rel="stylesheet" href="srcs/dark.css">
     <link rel="stylesheet" href="srcs/btperson.css">
+    <link rel="stylesheet" href="srcs/hamburguer.css">
     <link rel="icon" type="image/png" href="srcs/img/Logo.png">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6289193367631413"
      crossorigin="anonymous"></script>
@@ -15,13 +16,17 @@
         <a href="inicio.html">
             <img id="logo" src="srcs/img/Logo02.png" alt="logo">
         </a>
+        <i id="burguer" class="material-symbols-outlined" onclick="clickhb()">menu</i>
         <div id="buttons">
-            <button class="btn btn-primary btn-lg" id="bthd" onclick="window.location.href='guia.html'"><b>Sobre</b></button>
-            <button id="logout" class="btpadrao">Sair</button>
-            <label class="switch">
-                <input class="checkbox" type="checkbox" id="darkModeBtn"/>
-                <span class="slider"></span>
-            </label>
+            <div class="toggle-switch">
+                <label class="switch-label">
+                    <input type="checkbox" class="checkbox" id="darkModeBtn">
+                    <span class="slider"></span>
+                </label>
+            </div>  
+            <button class="btpadrao bthb" onclick="window.location.href='devocionais.html'"><b>Anotações</b></button>
+            <button class="btpadrao bthb" onclick="window.location.href='guia.html'"><b>Sobre</b></button>
+            <button id="logout" class="btpadrao bthb"><span class="material-symbols-outlined">logout</span></button>
         </div>
     </div>
 
@@ -41,6 +46,7 @@
 
     <script type="module" src="srcs/devocionais.js"></script>
     <script type="module" src="srcs/logout.js"></script>
+    <script src="srcs/hamburguer.js"></script>
     <script src="srcs/dark.js"></script>
     <script type="module" src="srcs/auth-guard.js"></script>
 </body>

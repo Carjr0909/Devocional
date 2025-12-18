@@ -43,12 +43,6 @@ footer {
   transition: 0.3s;
 }
 
-#buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
 .textosfomat{
   color: var(--text-color);
 }

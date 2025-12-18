@@ -1,58 +1,51 @@
-/* From Uiverse.io by artginzburg */ 
-/* The switch - the box around the slider */
-.switch {
-  --container-width: 3.5em;
-
-  font-size: 17px;
+.toggle-switch {
   position: relative;
-  display: inline-block;
-  width: var(--container-width);
-  height: 2em;
+  width: 60px;      /* antes 100px */
+  height: 30px;     /* antes 50px */
+  --light: #d8dbe0;
+  --dark: #28292c;
 }
 
-/* Hide default HTML checkbox */
-.switch .checkbox {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  --width: 0.4em;
-  --offset: 0.3em;
-  --transition-duration: 0.4s;
-
+.switch-label {
   position: absolute;
+  width: 100%;
+  height: 30px;
+  background-color: var(--dark);
+  border-radius: 15px;
   cursor: pointer;
-  inset: 0;
-  background-color: #ccc;
-  box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
-  transition: var(--transition-duration);
-  transition-property: background-color, box-shadow;
-  border-radius: 5px;
+  border: 2px solid var(--dark); /* antes 3px */
+}
+
+.checkbox {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.checkbox:checked ~ .slider {
+  background-color: var(--light);
 }
 
 .slider::before {
-  position: absolute;
   content: "";
-  height: 1.4em;
-  width: var(--width);
-  border-radius: 0.1em;
-  left: var(--offset);
-  bottom: var(--offset);
-  background-color: white;
-  transition: transform var(--transition-duration);
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--dark);
+  box-shadow: inset 8px -3px 0px 0px var(--light);
+  transition: 0.3s;
 }
 
-.checkbox:checked + .slider {
-  background-color: #171717;
-  box-shadow: inset 2px 5px 10px transparent;
-}
-
-.checkbox:checked + .slider::before {
-  transform: translateX(
-      calc(var(--container-width) - var(--offset) * 2 - var(--width))
-    )
-    rotate(1turn);
+.checkbox:checked ~ .slider::before {
+  transform: translateX(30px);
+  box-shadow: none;
 }
