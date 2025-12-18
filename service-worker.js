@@ -34,3 +34,26 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+
+let deferredPrompt;
+const btnInstall = document.getElementById("btnInstall");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btnInstall.style.display = "block";
+});
+
+btnInstall.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+
+  if (outcome === "accepted") {
+    console.log("App instalado");
+  }
+
+  deferredPrompt = null;
+  btnInstall.style.display = "none";
+});
