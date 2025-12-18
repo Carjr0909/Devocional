@@ -1,5 +1,6 @@
 #burguer {
     display: none;
+    color: var(--text-color);
 }
 
 #buttons {
