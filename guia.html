@@ -20,6 +20,9 @@
     <!-- Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6289193367631413"
         crossorigin="anonymous"></script>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#89F336">
 </head>
 
 <body>
@@ -103,5 +106,13 @@
     <script src="srcs/dark.js"></script>
     <script type="module" src="srcs/auth-guard.js"></script>
     <script src="srcs/hamburguer.js"></script>
+
+    <script>
+    if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker registrado"))
+        .catch(err => console.log("SW erro", err));
+    }
+    </script>
 </body>
 </html>
